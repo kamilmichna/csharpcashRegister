@@ -1,9 +1,11 @@
+using csharpCashier.Services;
+
 namespace csharpCashier
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        String result = "";
-        public Form1()
+        CashierService cashierService = CashierService.GetInstance();
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -13,22 +15,23 @@ namespace csharpCashier
         {
             if (isNumericValue)
             {
-                result += code;
+                cashierService.setResult(cashierService.result + code);
             }
             else
             {
                 switch (code)
                 {
                     case "back":
-                        result = result.Remove(result.Length - 1);
+                        cashierService.setResult(cashierService.result.Remove(cashierService.result.Length - 1));
                         break;
                     case "clear":
-                        result = "";
+                        // TODO: add FILO queue to handle history and back buttons
+                        cashierService.setResult("");
                         break;
                 }
             }
 
-            this.resultBox.Text = result;
+            this.resultBox.Text = cashierService.result;
         }
 
         private void click1(object sender, EventArgs e)
