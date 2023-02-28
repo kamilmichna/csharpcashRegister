@@ -13,25 +13,9 @@ namespace csharpCashier
 
         private void addNumberToResult(String code, Boolean isNumericValue)
         {
-            if (isNumericValue)
-            {
-                cashierService.setResult(cashierService.result + code);
-            }
-            else
-            {
-                switch (code)
-                {
-                    case "back":
-                        cashierService.setResult(cashierService.result.Remove(cashierService.result.Length - 1));
-                        break;
-                    case "clear":
-                        // TODO: add FILO queue to handle history and back buttons
-                        cashierService.setResult("");
-                        break;
-                }
-            }
+            this.cashierService.AddToResult(code, isNumericValue);
 
-            this.resultBox.Text = cashierService.result;
+            this.resultBox.Text = cashierService.currentResult;
         }
 
         private void click1(object sender, EventArgs e)
@@ -81,6 +65,16 @@ namespace csharpCashier
         private void clickClear(object sender, EventArgs e)
         {
             this.addNumberToResult("clear", false);
+            cashierService.commaPlaced = false;
+        }
+        private void clickComma(object sender, EventArgs e)
+        {
+            this.addNumberToResult("comma", false);
+        }
+        private void clickSubmit(object sender, EventArgs e)
+        {
+            String item = cashierService.SubmitResult();
+            this.itemsList.Items.Add(item);
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -99,6 +93,11 @@ namespace csharpCashier
         }
 
         private void button11_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button18_Click_1(object sender, EventArgs e)
         {
 
         }

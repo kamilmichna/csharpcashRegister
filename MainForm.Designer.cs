@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             resultBox = new TextBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             back = new Button();
@@ -42,15 +43,18 @@
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            button18 = new Button();
-            button17 = new Button();
             tableLayoutPanel3 = new TableLayoutPanel();
             clear = new Button();
             add = new Button();
+            button18 = new Button();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            button17 = new Button();
+            itemsList = new ListBox();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            textBox1 = new TextBox();
             tableLayoutPanel1.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // resultBox
@@ -62,6 +66,7 @@
             resultBox.Location = new Point(19, 19);
             resultBox.Margin = new Padding(10);
             resultBox.Name = "resultBox";
+            resultBox.ReadOnly = true;
             resultBox.Size = new Size(500, 32);
             resultBox.TabIndex = 0;
             // 
@@ -127,6 +132,7 @@
             comma.TabIndex = 13;
             comma.Text = ",";
             comma.UseVisualStyleBackColor = false;
+            comma.Click += clickComma;
             // 
             // button0
             // 
@@ -298,52 +304,6 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += click1;
             // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 1;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Controls.Add(button18, 0, 1);
-            tableLayoutPanel2.Controls.Add(button17, 0, 0);
-            tableLayoutPanel2.Location = new Point(532, 19);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 3;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new Size(406, 408);
-            tableLayoutPanel2.TabIndex = 2;
-            tableLayoutPanel2.Paint += tableLayoutPanel2_Paint;
-            // 
-            // button18
-            // 
-            button18.BackColor = Color.FromArgb(30, 166, 50);
-            button18.Dock = DockStyle.Fill;
-            button18.FlatStyle = FlatStyle.Flat;
-            button18.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
-            button18.ForeColor = SystemColors.ButtonFace;
-            button18.Location = new Point(3, 53);
-            button18.Name = "button18";
-            button18.Size = new Size(400, 44);
-            button18.TabIndex = 1;
-            button18.Text = "Zapisz zamówienie";
-            button18.UseVisualStyleBackColor = false;
-            button18.Click += button18_Click;
-            // 
-            // button17
-            // 
-            button17.BackColor = Color.FromArgb(48, 48, 48);
-            button17.Dock = DockStyle.Fill;
-            button17.FlatStyle = FlatStyle.Flat;
-            button17.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
-            button17.ForeColor = SystemColors.ButtonFace;
-            button17.Location = new Point(3, 3);
-            button17.Name = "button17";
-            button17.Size = new Size(400, 44);
-            button17.TabIndex = 0;
-            button17.Text = "Wpisz kod produktu";
-            button17.UseVisualStyleBackColor = false;
-            button17.Click += button17_Click;
-            // 
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.ColumnCount = 2;
@@ -390,26 +350,111 @@
             add.TabIndex = 14;
             add.Text = "Dodaj";
             add.UseVisualStyleBackColor = false;
+            add.Click += clickSubmit;
             // 
-            // Form1
+            // button18
+            // 
+            button18.AccessibleRole = AccessibleRole.None;
+            button18.AutoEllipsis = true;
+            button18.BackColor = Color.FromArgb(30, 166, 50);
+            button18.Dock = DockStyle.Fill;
+            button18.FlatAppearance.BorderSize = 0;
+            button18.FlatStyle = FlatStyle.Flat;
+            button18.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
+            button18.ForeColor = SystemColors.ButtonFace;
+            button18.Location = new Point(3, 66);
+            button18.Name = "button18";
+            button18.Size = new Size(414, 51);
+            button18.TabIndex = 1;
+            button18.Text = "Zapisz zamówienie";
+            button18.UseVisualStyleBackColor = false;
+            button18.Click += button18_Click;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Controls.Add(button18, 0, 2);
+            tableLayoutPanel2.Controls.Add(button17, 0, 1);
+            tableLayoutPanel2.Location = new Point(528, 308);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 4;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 57F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.Size = new Size(420, 119);
+            tableLayoutPanel2.TabIndex = 2;
+            tableLayoutPanel2.Paint += tableLayoutPanel2_Paint;
+            // 
+            // button17
+            // 
+            button17.BackColor = Color.FromArgb(48, 48, 48);
+            button17.Dock = DockStyle.Fill;
+            button17.FlatAppearance.BorderSize = 0;
+            button17.FlatStyle = FlatStyle.Flat;
+            button17.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
+            button17.ForeColor = SystemColors.ButtonFace;
+            button17.Location = new Point(3, 11);
+            button17.Name = "button17";
+            button17.Size = new Size(414, 49);
+            button17.TabIndex = 0;
+            button17.Text = "Wpisz kod produktu";
+            button17.UseVisualStyleBackColor = false;
+            button17.Click += button17_Click;
+            // 
+            // itemsList
+            // 
+            itemsList.BackColor = Color.FromArgb(48, 48, 48);
+            itemsList.BorderStyle = BorderStyle.None;
+            itemsList.ForeColor = SystemColors.ButtonFace;
+            itemsList.FormattingEnabled = true;
+            itemsList.ItemHeight = 15;
+            itemsList.Location = new Point(532, 19);
+            itemsList.Name = "itemsList";
+            itemsList.Size = new Size(416, 255);
+            itemsList.TabIndex = 4;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
+            // 
+            // textBox1
+            // 
+            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox1.BackColor = Color.FromArgb(23, 23, 23);
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox1.ForeColor = SystemColors.ButtonFace;
+            textBox1.Location = new Point(532, 275);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(416, 27);
+            textBox1.TabIndex = 6;
+            textBox1.Text = "Suma: 100zł";
+            textBox1.TextAlign = HorizontalAlignment.Right;
+            // 
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 23, 23);
             ClientSize = new Size(957, 443);
+            Controls.Add(textBox1);
+            Controls.Add(itemsList);
             Controls.Add(tableLayoutPanel3);
             Controls.Add(tableLayoutPanel2);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(resultBox);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Name = "Form1";
+            Name = "MainForm";
             Padding = new Padding(20);
             Text = "E Kasjer";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
-            tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -434,12 +479,15 @@
         private Button button3;
         private Button button2;
         private Button button1;
-        private TableLayoutPanel tableLayoutPanel2;
-        private Button button17;
-        private Button button18;
         private Button back;
         private TableLayoutPanel tableLayoutPanel3;
         private Button clear;
         private Button add;
+        private Button button18;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Button button17;
+        private ListBox itemsList;
+        private ContextMenuStrip contextMenuStrip1;
+        private TextBox textBox1;
     }
 }
