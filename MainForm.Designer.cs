@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             resultBox = new TextBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             back = new Button();
@@ -48,13 +47,19 @@
             add = new Button();
             button18 = new Button();
             tableLayoutPanel2 = new TableLayoutPanel();
-            button17 = new Button();
+            insertProductCode = new Button();
             itemsList = new ListBox();
-            contextMenuStrip1 = new ContextMenuStrip(components);
-            textBox1 = new TextBox();
+            sumTextBox = new TextBox();
+            menuStrip1 = new MenuStrip();
+            panel1 = new Panel();
+            produktyToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            listaProduktówToolStripMenuItem = new ToolStripMenuItem();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
+            menuStrip1.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // resultBox
@@ -63,7 +68,7 @@
             resultBox.BorderStyle = BorderStyle.None;
             resultBox.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             resultBox.ForeColor = SystemColors.ButtonFace;
-            resultBox.Location = new Point(19, 19);
+            resultBox.Location = new Point(19, 32);
             resultBox.Margin = new Padding(10);
             resultBox.Name = "resultBox";
             resultBox.ReadOnly = true;
@@ -89,7 +94,7 @@
             tableLayoutPanel1.Controls.Add(button3, 2, 0);
             tableLayoutPanel1.Controls.Add(button2, 1, 0);
             tableLayoutPanel1.Controls.Add(button1, 0, 0);
-            tableLayoutPanel1.Location = new Point(19, 71);
+            tableLayoutPanel1.Location = new Point(19, 85);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
@@ -311,7 +316,7 @@
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel3.Controls.Add(clear, 0, 0);
             tableLayoutPanel3.Controls.Add(add, 0, 0);
-            tableLayoutPanel3.Location = new Point(19, 360);
+            tableLayoutPanel3.Location = new Point(19, 374);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -368,15 +373,14 @@
             button18.TabIndex = 1;
             button18.Text = "Zapisz zamówienie";
             button18.UseVisualStyleBackColor = false;
-            button18.Click += button18_Click;
             // 
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.ColumnCount = 1;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Controls.Add(button18, 0, 2);
-            tableLayoutPanel2.Controls.Add(button17, 0, 1);
-            tableLayoutPanel2.Location = new Point(528, 308);
+            tableLayoutPanel2.Controls.Add(insertProductCode, 0, 1);
+            tableLayoutPanel2.Location = new Point(525, 322);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 4;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
@@ -387,21 +391,21 @@
             tableLayoutPanel2.TabIndex = 2;
             tableLayoutPanel2.Paint += tableLayoutPanel2_Paint;
             // 
-            // button17
+            // insertProductCode
             // 
-            button17.BackColor = Color.FromArgb(48, 48, 48);
-            button17.Dock = DockStyle.Fill;
-            button17.FlatAppearance.BorderSize = 0;
-            button17.FlatStyle = FlatStyle.Flat;
-            button17.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
-            button17.ForeColor = SystemColors.ButtonFace;
-            button17.Location = new Point(3, 11);
-            button17.Name = "button17";
-            button17.Size = new Size(414, 49);
-            button17.TabIndex = 0;
-            button17.Text = "Wpisz kod produktu";
-            button17.UseVisualStyleBackColor = false;
-            button17.Click += button17_Click;
+            insertProductCode.BackColor = Color.FromArgb(48, 48, 48);
+            insertProductCode.Dock = DockStyle.Fill;
+            insertProductCode.FlatAppearance.BorderSize = 0;
+            insertProductCode.FlatStyle = FlatStyle.Flat;
+            insertProductCode.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
+            insertProductCode.ForeColor = SystemColors.ButtonFace;
+            insertProductCode.Location = new Point(3, 11);
+            insertProductCode.Name = "insertProductCode";
+            insertProductCode.Size = new Size(414, 49);
+            insertProductCode.TabIndex = 0;
+            insertProductCode.Text = "Wpisz kod produktu";
+            insertProductCode.UseVisualStyleBackColor = false;
+            insertProductCode.Click += openProductCodeModal;
             // 
             // itemsList
             // 
@@ -410,43 +414,81 @@
             itemsList.ForeColor = SystemColors.ButtonFace;
             itemsList.FormattingEnabled = true;
             itemsList.ItemHeight = 15;
-            itemsList.Location = new Point(532, 19);
+            itemsList.Location = new Point(529, 33);
             itemsList.Name = "itemsList";
             itemsList.Size = new Size(416, 255);
             itemsList.TabIndex = 4;
             // 
-            // contextMenuStrip1
+            // sumTextBox
             // 
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(61, 4);
+            sumTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            sumTextBox.BackColor = Color.FromArgb(23, 23, 23);
+            sumTextBox.BorderStyle = BorderStyle.None;
+            sumTextBox.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            sumTextBox.ForeColor = SystemColors.ButtonFace;
+            sumTextBox.Location = new Point(529, 289);
+            sumTextBox.Name = "sumTextBox";
+            sumTextBox.Size = new Size(416, 27);
+            sumTextBox.TabIndex = 6;
+            sumTextBox.Text = "Suma: 0zł";
+            sumTextBox.TextAlign = HorizontalAlignment.Right;
             // 
-            // textBox1
+            // menuStrip1
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.BackColor = Color.FromArgb(23, 23, 23);
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox1.ForeColor = SystemColors.ButtonFace;
-            textBox1.Location = new Point(532, 275);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(416, 27);
-            textBox1.TabIndex = 6;
-            textBox1.Text = "Suma: 100zł";
-            textBox1.TextAlign = HorizontalAlignment.Right;
+            menuStrip1.BackColor = Color.FromArgb(23, 23, 23);
+            menuStrip1.Dock = DockStyle.Fill;
+            menuStrip1.GripStyle = ToolStripGripStyle.Visible;
+            menuStrip1.Items.AddRange(new ToolStripItem[] { produktyToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Padding = new Padding(0);
+            menuStrip1.RenderMode = ToolStripRenderMode.Professional;
+            menuStrip1.Size = new Size(923, 27);
+            menuStrip1.TabIndex = 7;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(menuStrip1);
+            panel1.Location = new Point(22, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(923, 27);
+            panel1.TabIndex = 8;
+            // 
+            // produktyToolStripMenuItem
+            // 
+            produktyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1, listaProduktówToolStripMenuItem });
+            produktyToolStripMenuItem.Name = "produktyToolStripMenuItem";
+            produktyToolStripMenuItem.Size = new Size(67, 27);
+            produktyToolStripMenuItem.Text = "Produkty";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Text = "Dodaj produkt";
+            // 
+            // listaProduktówToolStripMenuItem
+            // 
+            listaProduktówToolStripMenuItem.Name = "listaProduktówToolStripMenuItem";
+            listaProduktówToolStripMenuItem.Size = new Size(180, 22);
+            listaProduktówToolStripMenuItem.Text = "Lista produktów";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 23, 23);
-            ClientSize = new Size(957, 443);
-            Controls.Add(textBox1);
+            ClientSize = new Size(964, 452);
+            Controls.Add(panel1);
+            Controls.Add(sumTextBox);
             Controls.Add(itemsList);
             Controls.Add(tableLayoutPanel3);
             Controls.Add(tableLayoutPanel2);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(resultBox);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MainMenuStrip = menuStrip1;
             Name = "MainForm";
             Padding = new Padding(20);
             Text = "E Kasjer";
@@ -455,6 +497,10 @@
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -485,9 +531,13 @@
         private Button add;
         private Button button18;
         private TableLayoutPanel tableLayoutPanel2;
-        private Button button17;
+        private Button insertProductCode;
         private ListBox itemsList;
-        private ContextMenuStrip contextMenuStrip1;
-        private TextBox textBox1;
+        private TextBox sumTextBox;
+        private MenuStrip menuStrip1;
+        private Panel panel1;
+        private ToolStripMenuItem produktyToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem listaProduktówToolStripMenuItem;
     }
 }

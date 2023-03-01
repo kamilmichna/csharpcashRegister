@@ -15,7 +15,7 @@ namespace csharpCashier
         {
             this.cashierService.AddToResult(code, isNumericValue);
 
-            this.resultBox.Text = cashierService.currentResult;
+            this.resultBox.Text = cashierService.currentItem;
         }
 
         private void click1(object sender, EventArgs e)
@@ -73,13 +73,18 @@ namespace csharpCashier
         }
         private void clickSubmit(object sender, EventArgs e)
         {
-            String item = cashierService.SubmitResult();
-            this.itemsList.Items.Add(item);
+            if (cashierService.ValidateResult(cashierService.currentItem))
+            {
+                String item = cashierService.Submit();
+                this.itemsList.Items.Add(item);
+                this.sumTextBox.Text = "Suma: " + cashierService.sum + "z³";
+            }
         }
 
-        private void button17_Click(object sender, EventArgs e)
+        private void openProductCodeModal(object sender, EventArgs e)
         {
-
+            var modal = new InsertProductCode();
+            modal.ShowDialog();
         }
 
         private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
